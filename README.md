@@ -1,15 +1,33 @@
-# Welcome to the TrendMiner MLHub Repository!
+## Usage
 
-## Overview
-TrendMiner is a self-service data analytics tool that serves the process industry by providing a platform for engineers, operators and others to perform analytics of the time-series data collected by sensors and stored in data historians.
+### Command-Line Interface
 
-The MLHub functionality enables the power of python for performing advanced analytics on your time-series data complementing the built-in functionalities available in TrendMiner. Create your own visualizations and deploy the output of the notebook to DashHub or build your own models using common machine learning techniques.
+Run any custom calculation script and generate a time-series plot:
 
-## This repository
-Use the code snippets found in this repository as inspiration for your own projects. You will find some examples
-of how Pandas, Numpy, ScikitLearn, Matplolib, Plotly and other packages can be used together with the time series data that
-is already available in TrendMiner to enhance your analysis.
+```bash
+python local_run.py path/to/your_script.py \
+    --env-file .env \
+    --start 2025-05-01T00:00:00Z \
+    --end   2025-05-07T00:00:00Z \
+    --mode  analog
+```
 
-Review the [wiki page](https://github.com/TrendMiner/notebooks/wiki) for more information on how to get started.
+- `--env-file`: path to your `.env` file with TrendMiner credentials.  
+- `--start` and `--end`: ISO timestamps for the time range.  
+- `--mode`: `analog` (line plot) or `block` (step plot).  
+- Outputs: a timestamped subfolder named after your script, containing a CSV and PNG.
 
-For further reading, please refer to our [support documents](https://support.trendminer.com/hc/en-us/sections/360010399231-Embedded-Notebooks)
+### Web Frontend
+
+Start the Flask app to run and visualize calculations in your browser:
+
+1. Move into the project root and run:
+   ```bash
+   export FLASK_APP=app.py
+   flask run
+   ```
+2. Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser.  
+3. Select a script, pick start/end timestamps, choose mode, and click **Run & Plot**.  
+4. The interactive chart appears below the form.
+
+Environment variables for the web (e.g., `SERVER_URL`, `CLIENT_ID`) should be set in your `.env` as for the CLI.
