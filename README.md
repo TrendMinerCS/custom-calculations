@@ -20,7 +20,7 @@ All example scripts live in the `custom calculations scripts` directory. Each sc
 
 These examples cover the operations that happen on regular intervals. Daily, weekly, monthly, and yearly intervals can be generated with the `client.time.interval.range` method with `normalize=True`. Note that this approach does not work for hourly intervals, for which you need to write a custom function (returning all full hours that overlap with the index interval). Alternatively, you could opt to perform a value-based search for a built-in hour tag (e.g, TM_hour_Europe_Brussels) being constant.
 
-* [**Block aggregation**](custom%20calculations%20scripts/regular%20intevals%20examples/block_aggregation.py)
+* [**Block aggregation**](custom calculations scripts/regular intervals examples/block_aggregation.py)
   * Apply aggregation functions (e.g., sum, average) on fixed time blocks within the index interval. This can be helpful for creating a tag for roll-up reporting or monitoring purposes.
   ![img.png](images/block_aggregation.png)
 * [**Event count**](custom%calculations%scripts/regular%intevals%examples/event_counter.py)
