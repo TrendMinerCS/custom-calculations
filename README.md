@@ -26,7 +26,8 @@ Start the Flask app to run and visualize calculations in your browser:
    export FLASK_APP=app.py
    flask run
    ```
-2. Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser.  
+2. Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser.
+3. Make sure your script is in the custom calculations folder
 3. Select a script, pick start/end timestamps, choose mode, and click **Run & Plot**.  
 4. The interactive chart appears below the form.
 
