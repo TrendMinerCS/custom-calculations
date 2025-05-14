@@ -6,7 +6,6 @@ from scipy.integrate import cumulative_trapezoid
 from trendminer import TrendMinerClient
 from trendminer.sdk.search import ValueBasedSearchOperators
 
-
 # ---- PARAMETERS -----
 
 # Initialize client
@@ -21,7 +20,7 @@ default_value = 0
 # tag definition; add these as dependencies!
 tag1 = client.tag.get_by_name("TM_day_Europe_Brussels")
 
-tag_to_totalize= client.tag.get_by_name("[CS]BA:CONC.1")
+tag_to_totalize = client.tag.get_by_name("[CS]BA:CONC.1")
 
 # Time unit the tag is expressed in; required to get correct totalizer values
 time_unit = client.time.timedelta("1h")  # here expressed in 'per hour'
@@ -41,7 +40,7 @@ maximal_duration = client.time.timedelta("25h")
 
 # Received index interval
 index_interval = client.time.interval(
-    os.environ["START_TIMESTAMP"], 
+    os.environ["START_TIMESTAMP"],
     os.environ["END_TIMESTAMP"],
 )
 
@@ -61,7 +60,7 @@ for interval in intervals:
     if len(tag_data) <= 1:
         continue
     relative_index = tag_data.index - tag_data.index[0]
-    x_coordinate = relative_index.total_seconds()/time_unit.total_seconds()
+    x_coordinate = relative_index.total_seconds() / time_unit.total_seconds()
     total_values = cumulative_trapezoid(y=tag_data, x=x_coordinate)
     total_values = np.insert(total_values, 0, 0)  # start values at 0
 
@@ -76,17 +75,16 @@ for interval in intervals:
         totals = pd.concat(
             [
                 totals,
-                pd.Series(index=[interval.end+timedelta(seconds=0.001)], data=[default_value])
+                pd.Series(index=[interval.end + timedelta(seconds=0.001)], data=[default_value])
             ]
         )
-    
+
     ser_list.append(totals)
 
 # Concatenate the series
 ser = pd.concat(ser_list)
 ser.name = "value"
 ser.index.name = "ts"
-
 
 # Filter for timestamps and NaN values
 ser = (
