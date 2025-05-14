@@ -62,6 +62,17 @@ Feel free to copy or adapt any of these scripts for your own custom calculations
 
 ## DEV
 
+### Install dependencies
+
+First install the dependencies from the `requirements.txt`
+```bash
+pip install -r requirements.txt
+```
+For the custom calculations sdk you will have to download the zip file from GitHub, if you are from outside the TrendMiner organization you can contact the team for the latest version.
+```bash
+pip install tm_sdk.zip
+```
+
 ### Command-Line Interface
 
 Run any custom calculation script and generate a time-series plot:
@@ -95,5 +106,10 @@ Start the Flask app to run and visualize calculations in your browser:
 
 Environment variables for the web (e.g., `SERVER_URL`, `CLIENT_ID`) should be set in your `.env` as for the CLI.
 
+### Adding new custom calcs to main
 
-git checkout -p dev -- "custom calculations introduction.ipynb"
+In order to add your new custom calculation to the main repo run the following command and approve.
+```bash
+git checkout -p dev -- your_file_name
+```
+**Remember** also adjust the README to contain the information of your new custom calculation.
