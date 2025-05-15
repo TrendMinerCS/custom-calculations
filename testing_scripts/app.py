@@ -1,29 +1,31 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from http.cookiejar import debug
+from venv import logger
+
+from flask import Flask, render_template, request, flash
 import pandas as pd
 import os
-import tempfile
-from werkzeug.utils import secure_filename
 from pathlib import Path
 from datetime import datetime, timedelta
-
-# Ensure the project root is on the Python module search path
+from local_run import run_and_plot
 import sys
-import os
-# Ensure the project root (one level up) is on the Python module search path
+
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-# import the helper you just added:
-from local_run import run_and_plot
+# Tell Flask where to find templates and static files in the frontend folder
+app = Flask(
+    __name__,
+    template_folder=str(Path(__file__).resolve().parent / "frontend" / "templates"),
+    static_folder=str(Path(__file__).resolve().parent / "frontend" / "static")
+)
 
-app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    # Discover available Python scripts on server
-    scripts_dir = Path.cwd()
+    # Point to the dedicated scripts folder instead of current working directory
+    scripts_dir = Path(__file__).resolve().parent.parent / "custom calculations scripts"
     scripts = [
         str(p.relative_to(scripts_dir))
         for p in scripts_dir.glob("**/*.py")
@@ -53,8 +55,10 @@ def index():
                                    timestamps=[], values=[])
 
         try:
-            csv_path, _ = run_and_plot(script, start, end, mode)
+            print("start")
+            csv_path, _ = run_and_plot(str(script_path), start, end, mode)
             df = pd.read_csv(csv_path, index_col=0, parse_dates=True).dropna()
+            print(df)
             timestamps = df.index.strftime('%Y-%m-%d %H:%M:%S').tolist()
             values     = df.iloc[:, 0].tolist()
             return render_template("index.html",
@@ -78,4 +82,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

@@ -143,14 +143,16 @@ def run_and_plot(script_path: str, start: str, end: str, mode: str):
     # Fetch or refresh the TrendMiner access token
     fetch_access_token()
 
-    # 2) Point OUTPUT_FILE into a temp folder:
+    # Save outputs in an 'output' folder next to the script
     script_file = Path(script_path).expanduser().resolve()
     script_name = script_file.stem
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_dir = Path.cwd() / script_name
+    output_dir = script_file.parent / "output"
     output_dir.mkdir(exist_ok=True)
     csv_path = output_dir / f"{script_name}_{timestamp}.csv"
     os.environ["OUTPUT_FILE"] = str(csv_path)
+    # Log where the CSV will be written
+    print(f"Saving CSV to: {csv_path}", flush=True)
 
     # 3) Run & plot:
     run_calculation(script_file)
