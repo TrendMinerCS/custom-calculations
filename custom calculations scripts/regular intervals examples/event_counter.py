@@ -4,7 +4,6 @@ from trendminer import TrendMinerClient
 from trendminer.sdk.tag import TagCalculationOptions
 from trendminer.sdk.search import ValueBasedSearchOperators
 
-
 # ---- PARAMETERS -----
 
 # Initialize client
@@ -16,7 +15,7 @@ client = TrendMinerClient.from_token(
 # Frequency selection
 # https://pandas.pydata.org/docs/user_guide/timeseries.html#timeseries-offset-aliases
 # Daily: D | Weekly starting Monday: W-MON | Monthly: MS | Yearly: YS
-freq = "D"  
+freq = "D"
 maximal_duration = client.time.timedelta("25h")  # the maximal possible duration of one interval
 
 # tag definition
@@ -31,12 +30,12 @@ event_search = client.search.value(
     ],
     duration=search_duration,
 )
-        
+
 # ---- CODE EXECUTION -----
 
 # Received index interval
 index_interval = client.time.interval(
-    os.environ["START_TIMESTAMP"], 
+    os.environ["START_TIMESTAMP"],
     os.environ["END_TIMESTAMP"],
 )
 
@@ -51,55 +50,42 @@ last_timestamp = min([
     for tag in tags
 ])
 
-# Get regular intervals. In this case we also have to look backwards.
+# Get regular intervals
 intervals = client.time.interval.range(
     freq=freq,
-    start=index_interval.start - maximal_duration,
-    end=index_interval.end + maximal_duration,
+    start=index_interval.start,
+    end=min([
+        index_interval.end + maximal_duration,
+        last_timestamp - search_duration,
+    ]),
     normalize=True,
 )
 
 # Get search results
 search_interval = client.time.interval(
-    index_interval.start - maximal_duration,
+    index_interval.start - client.resolution,
     index_interval.end + maximal_duration,
 )
 
 results = event_search.get_results(search_interval)
 
-# Generate a dataframe per interval
-ser_list = []
+# Count number of results that start in each regular interval
 for interval in intervals:
-    
-    interval_results = [
-        result for result in results 
-        if (interval.start <= result.start) 
-        and (result.start < interval.end)
-    ]
+    interval["count"] = sum([
+        1 for result in results
+        if (interval.start <= result.start)
+           and (result.start < interval.end)
+    ])
 
-    interval_ser = pd.Series(
-        index=[result.start for result in interval_results],
-        data=1,
-    ).cumsum()
-
-    # start at 0 unless first result starts at interval start
-    if (len(interval_results) == 0) or (interval_results[0].start != interval.start):
-        interval_ser = pd.concat(
-            [
-                pd.Series(
-                    index=[interval.start],
-                    data=[0],
-                ),
-                interval_ser,
-            ]
-        )
-    
-    ser_list.append(interval_ser)
-
-# Concatenate the series
-ser = pd.concat(ser_list)
-ser.name = "value"
-ser.index.name = "ts"
+# Put the results in a Series
+ser = pd.Series(
+    index=[
+        interval.start for interval in intervals
+    ],
+    data=[
+        interval["count"] for interval in intervals
+    ],
+)
 
 # Filter for timestamps and NaN values
 ser = (
@@ -110,6 +96,7 @@ ser = (
 )
 
 # To file
-ser.to_csv(
-    os.environ["OUTPUT_FILE"]
-)
+if not ser.empty:
+    ser.to_csv(
+        os.environ["OUTPUT_FILE"]
+    )

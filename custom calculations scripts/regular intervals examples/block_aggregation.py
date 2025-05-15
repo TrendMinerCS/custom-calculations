@@ -3,7 +3,6 @@ import pandas as pd
 from trendminer import TrendMinerClient
 from trendminer.sdk.tag import TagCalculationOptions
 
-
 # ---- PARAMETERS -----
 
 # Initialize client
@@ -15,7 +14,7 @@ client = TrendMinerClient.from_token(
 # Frequency selection
 # https://pandas.pydata.org/docs/user_guide/timeseries.html#timeseries-offset-aliases
 # Daily: D | Weekly starting Monday: W-MON | Monthly: MS | Yearly: YS
-freq = "D"  
+freq = "D"
 maximal_duration = client.time.timedelta("25h")  # the maximal possible duration of one interval
 
 # tag definition
@@ -26,11 +25,10 @@ tags = [tag1, tag2]
 
 # calculation definition
 def calculate(intervals):
-
     # Aggregations
     tag1.calculate(
         intervals=intervals,
-        operation=TagCalculationOptions.MAXIMUM, # MEAN, MINIMUM, MAXIMUM, RANGE, START, END, DELTA, INTEGRAL, STDEV
+        operation=TagCalculationOptions.MAXIMUM,  # MEAN, MINIMUM, MAXIMUM, RANGE, START, END, DELTA, INTEGRAL, STDEV
         key="calc1",
         inplace=True,
     )
@@ -45,20 +43,19 @@ def calculate(intervals):
     # Custom operations
     for interval in intervals:
         # Account for potential missing calculations
-        try: 
-            interval["result"] = interval["calc1"]*interval["calc2"]
+        try:
+            interval["result"] = interval["calc1"] * interval["calc2"]
         except (TypeError, KeyError):
             interval["result"] = None
-        
+
 
 # ---- CODE EXECUTION -----
 
 # Received index interval
 index_interval = client.time.interval(
-    os.environ["START_TIMESTAMP"], 
+    os.environ["START_TIMESTAMP"],
     os.environ["END_TIMESTAMP"],
 )
-
 
 # Determine the last point up to which we can perform calculations (all tags indexed)
 check_interval = client.time.interval(
@@ -88,7 +85,7 @@ calculate(intervals)
 # Put the results in a Series
 ser = pd.Series(
     index=[
-        interval.start for interval in intervals 
+        interval.start for interval in intervals
     ],
     data=[
         interval["result"] for interval in intervals

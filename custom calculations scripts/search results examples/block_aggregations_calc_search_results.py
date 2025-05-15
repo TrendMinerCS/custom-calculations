@@ -4,7 +4,6 @@ from trendminer import TrendMinerClient
 from trendminer.sdk.tag import TagCalculationOptions
 from trendminer.sdk.search import ValueBasedSearchOperators, SearchCalculationOptions
 
-
 # ---- PARAMETERS -----
 
 # Initialize client
@@ -28,7 +27,8 @@ search = client.search.value(
     ],
     duration="23h",
     calculations={
-        "calc1": (tag1, SearchCalculationOptions.MAXIMUM), # MEAN, MINIMUM, MAXIMUM, RANGE, START, END, DELTA, INTEGRAL, STDEV
+        "calc1": (tag1, SearchCalculationOptions.MAXIMUM),
+        # MEAN, MINIMUM, MAXIMUM, RANGE, START, END, DELTA, INTEGRAL, STDEV
         "calc2": (tag2, SearchCalculationOptions.MAXIMUM),
     }
 )
@@ -36,21 +36,22 @@ search = client.search.value(
 # maximal search result duration
 maximal_duration = client.time.timedelta("25h")
 
+
 # additional custom operation on search calculations
 def calculate(intervals):
     for interval in intervals:
         # Account for potential missing calculations
         try:
-            interval["result"] = interval["calc1"]*interval["calc2"]
+            interval["result"] = interval["calc1"] * interval["calc2"]
         except (TypeError, KeyError):
             interval["result"] = None
-        
+
 
 # ---- CODE EXECUTION -----
 
 # Received index interval
 index_interval = client.time.interval(
-    os.environ["START_TIMESTAMP"], 
+    os.environ["START_TIMESTAMP"],
     os.environ["END_TIMESTAMP"],
 )
 
@@ -74,7 +75,7 @@ calculate(intervals)
 ser = pd.Series(
     name="value",
     index=[
-        timestamp for interval in intervals 
+        timestamp for interval in intervals
         for timestamp in (interval.start, interval.end)
     ],
     data=[
