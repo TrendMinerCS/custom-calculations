@@ -68,7 +68,7 @@ First install the dependencies from the `requirements.txt`
 ```bash
 pip install -r requirements.txt
 ```
-For the custom calculations sdk you will have to download the zip file from GitHub, if you are from outside the TrendMiner organization you can contact the team for the latest version.
+For the custom calculations sdk you will have to download the zip file from GitHub at https://github.com/TrendMiner/tm-python-sdk-core. If you are from outside the TrendMiner organization you can contact the team for the latest version.
 ```bash
 pip install tm_sdk.zip
 ```
