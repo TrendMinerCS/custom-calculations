@@ -73,22 +73,27 @@ For the custom calculations sdk you will have to download the zip file from GitH
 pip install tm_sdk.zip
 ```
 
-### Command-Line Interface
-
-Run any custom calculation script and generate a time-series plot:
-
-```bash
-python local_run.py path/to/your_script.py \
-    --env-file .env \
-    --start 2025-05-01T00:00:00Z \
-    --end   2025-05-07T00:00:00Z \
-    --mode  analog
+### Authentication configuration
+To set up your authentication, create the file `testing_scripts/.env` with the following content:
 ```
+START_TIMESTAMP="2025-01-01T00:00:00Z"
+END_TIMESTAMP="2025-05-01T00:00:00Z"
+SERVER_URL="https://your.trendminer.com/"
+CLIENT_ID="CLIENT_ID"
+```
+Your client secret needs to be stored in your keychain if it is not already there. To do so, insert your client secret from ConfigHub in the code below and run it to store the secret on the keychain where this script will be able to access it.
 
-- `--env-file`: path to your `.env` file with TrendMiner credentials.  
-- `--start` and `--end`: ISO timestamps for the time range.  
-- `--mode`: `analog` (line plot) or `block` (step plot).  
-- Outputs: a timestamped subfolder named after your script, containing a CSV and PNG.
+```python
+import keyring
+import os
+from dotenv import load_dotenv
+
+keyring.set_password(
+  os.environ["SERVER_URL"], 
+  os.environ["CLIENT_ID"],
+  "...", # your client secret from ConfigHub
+)
+```
 
 ### Web Frontend
 
@@ -96,7 +101,7 @@ Start the Flask app to run and visualize calculations in your browser:
 
 1. Move into the project root and run:
    ```bash
-   export FLASK_APP=app.py
+   export FLASK_APP=testing_scripts/app.py
    flask run
    ```
 2. Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser.
@@ -105,6 +110,22 @@ Start the Flask app to run and visualize calculations in your browser:
 4. The interactive chart appears below the form.
 
 Environment variables for the web (e.g., `SERVER_URL`, `CLIENT_ID`) should be set in your `.env` as for the CLI.
+
+### Command-Line Interface
+Run any custom calculation script and generate a time-series plot based on your `testing_scripts/.env` file. For example:
+
+```bash
+python testing_scripts/local_run.py \
+"custom calculations scripts/regular intervals examples/event_counter.py" \
+--mode block
+```
+This outputs a folder `output/<script name>`, which contains a csv and png file.
+
+The following flags can 
+- `--env-file`: path to your `.env` file with TrendMiner credentials.  
+- `--start` and `--end`: ISO timestamps for the time range. Overrides the timestamps given in your `.env` file.
+- `--mode`: `analog` (line plot; default value) or `block` (step plot).
+
 
 ### Adding new custom calcs to main
 
