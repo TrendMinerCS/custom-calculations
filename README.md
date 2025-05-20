@@ -128,9 +128,11 @@ The following flags can
 
 
 ### Adding new custom calcs to main
-
-In order to add your new custom calculation to the main repo run the following command and approve.
+In order to add a new custom calculation example to the main repo, first commit and push it on the dev repo. Then you can check out the main repo and run the following command to selectively add your example:
 ```bash
-git checkout -p dev -- your_file_name
+git checkout -p dev -- "custom calculations scripts/<file name>.py"
 ```
+
+A confirmation request will pop up. You can apply the addition to index and worktree (type `y` and enter).
+
 **Remember** also adjust the README to contain the information of your new custom calculation.
