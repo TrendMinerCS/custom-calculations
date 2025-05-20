@@ -156,6 +156,7 @@ celerybeat.pid
 # Environments
 ../../zeiss_context_items/.env
 .venv
+.venv/*
 env/
 venv/
 ENV/
@@ -216,3 +217,4 @@ $RECYCLE.BIN/
 _build_sdk.py
 
 # End of https://www.toptal.com/developers/gitignore/api/python,macos,windows,linux
+/.idea/
