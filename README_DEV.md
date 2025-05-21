@@ -66,15 +66,18 @@ The following flags can
 - `--mode`: `analog` (line plot; default value) or `block` (step plot).
 
 
-### Adding new custom calcs to main
-In order to add a new custom calculation example to the main repo, first commit and push it on the dev repo. Then you can check out the main repo and run the following command to selectively add your example:
+### Adding new custom calculations
+After finalizing a new custom calculations script, make sure to add an automatic test for it in `tests/test_calculations` (and make sure that tests succeeds).
+
+Then, add a description of your new calculation to the `README.md`
+
+Finally, in order to add a new custom calculation example to the main repo, first commit and push it on the dev repo. Then you can check out the main repo and selectively check out your new script, as well as the updated `README.md`
 ```bash
 git checkout -p dev -- "custom calculations scripts/<file name>.py"
+git checkout -p dev -- "README.md"
 ```
 
 A confirmation request will pop up. You can apply the addition to index and worktree (type `y` and enter).
-
-**Remember** also adjust the README to contain the information of your new custom calculation.
 
 # TODOs:
 - [ ] Add automatic tests which run every custom calculation
