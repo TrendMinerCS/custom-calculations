@@ -11,7 +11,6 @@ from trendminer.impl._util import DefaultUrlUtils
 url = "https://cs.trendminer.net"
 client_id = "wdanielsclient"
 
-now = pd.Timestamp.now(tz="utc")
 response = requests.post(
     url=f"{url}/auth/realms/trendminer/protocol/openid-connect/token",
     headers={"Content-Type": "application/x-www-form-urlencoded"},
@@ -26,8 +25,8 @@ os.environ["ACCESS_TOKEN"] = response.json()["access_token"]
 DefaultUrlUtils.get_default_url = lambda *_, **__: url  # url getter needs to be overwritten for local runs
 
 # 2. SET INDEX INTERVAL
-os.environ["START_TIMESTAMP"] = (now - pd.Timedelta(days=500)).isoformat()
-os.environ["END_TIMESTAMP"] = now.isoformat()
+os.environ["START_TIMESTAMP"] = pd.Timestamp(year=2024, month=3, day=19).isoformat()
+os.environ["END_TIMESTAMP"] = pd.Timestamp(year=2024, month=6, day=19).isoformat()
 os.environ["OUTPUT_FILE"] = "_local_run.csv" # temporary file
 
 # 3. RUN A CUSTOM CALCULATION BY IMPORTING THE FILE
