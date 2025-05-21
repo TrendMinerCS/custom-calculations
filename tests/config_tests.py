@@ -48,7 +48,7 @@ def env_init(start, end):
             os.remove(os.environ["OUTPUT_FILE"])
 
             # Test output
-            df.index = pd.to_datetime(df.index)
+            df.index = pd.to_datetime(df.index, format="ISO8601")
             if df.empty:
                 raise ValueError("Script yielded no output")
             if df.index[0] < start:
