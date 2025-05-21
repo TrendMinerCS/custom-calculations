@@ -154,8 +154,10 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+../../zeiss_context_items/.env
+/testing_scripts/.env
 .venv
+.venv/*
 env/
 venv/
 ENV/
@@ -216,3 +218,4 @@ $RECYCLE.BIN/
 _build_sdk.py
 
 # End of https://www.toptal.com/developers/gitignore/api/python,macos,windows,linux
+/.idea/
