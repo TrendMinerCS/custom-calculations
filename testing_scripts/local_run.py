@@ -30,7 +30,7 @@ logging.getLogger('urllib3').setLevel(logging.WARNING)
 
 def load_environment(env_file: str) -> None:
     """Load variables from .env without overwriting existing ones."""
-    logger.debug("Loading environment from %s", env_file)
+    logger.debug("Loading environment from %s", "testing_scripts/.env")
     load_dotenv(dotenv_path=env_file, override=False)
 
 
@@ -104,8 +104,8 @@ def main() -> None:
         description="Run a TrendMiner custom-calculation script and plot its output."
     )
     parser.add_argument("script", help="Path to the custom-calculation .py file")
-    parser.add_argument("--env-file", default=".env",
-                        help="Path to the .env file (default: ./.env)")
+    parser.add_argument("--env-file", default="testing_scripts/.env",
+                        help="Path to the .env file (default: testing_scripts/.env)")
     parser.add_argument("--start", help="Override START_TIMESTAMP")
     parser.add_argument("--end",   help="Override END_TIMESTAMP")
     parser.add_argument("--mode",
