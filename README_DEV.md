@@ -77,5 +77,5 @@ A confirmation request will pop up. You can apply the addition to index and work
 **Remember** also adjust the README to contain the information of your new custom calculation.
 
 # TODOs:
-- [ ] Add automatic tests whcih run every custom calculation
+- [ ] Add automatic tests which run every custom calculation
 - [ ] Split `requirements.txt` into two files: `custom_calc_requirements.txt` which exactly matches the environment within custom calculations, and `dev_requirements.txt` with utility packages for running the custom calcs locally.
