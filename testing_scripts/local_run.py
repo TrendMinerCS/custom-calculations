@@ -20,8 +20,13 @@ from trendminer.impl._util import DefaultUrlUtils
 from datetime import datetime
 
 import logging
-logging.basicConfig(level=logging.DEBUG, format="%(asctime)s %(levelname)s [%(name)s] %(message)s")
+logging.basicConfig(level=logging.WARNING, format="%(asctime)s %(levelname)s [%(name)s] %(message)s")
 logger = logging.getLogger(__name__)
+# Suppress noisy third‑party libraries
+logging.getLogger('matplotlib.font_manager').setLevel(logging.WARNING)
+logging.getLogger('keycloak').setLevel(logging.WARNING)
+logging.getLogger('trendminer').setLevel(logging.WARNING)
+logging.getLogger('urllib3').setLevel(logging.WARNING)
 
 def load_environment(env_file: str) -> None:
     """Load variables from .env without overwriting existing ones."""

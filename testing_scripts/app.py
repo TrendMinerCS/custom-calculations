@@ -1,4 +1,3 @@
-from http.cookiejar import debug
 from venv import logger
 
 from flask import Flask, render_template, request, flash
@@ -9,8 +8,10 @@ from datetime import datetime, timedelta
 from local_run import run_and_plot
 import sys
 import logging
-logging.basicConfig(level=logging.DEBUG, format="%(asctime)s %(levelname)s [%(name)s] %(message)s")
+logging.basicConfig(level=logging.WARNING, format="%(asctime)s %(levelname)s [%(name)s] %(message)s")
 logger = logging.getLogger(__name__)
+# Suppress Flask request logs
+logging.getLogger('werkzeug').setLevel(logging.WARNING)
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 if project_root not in sys.path:
@@ -64,9 +65,10 @@ def index():
             logger.info("run_and_plot returned CSV path %s", csv_path)
             # Read CSV (index remains string), then convert index to datetime handling mixed formats
             df = pd.read_csv(csv_path, index_col=0).dropna()
-            df.index = pd.to_datetime(df.index, format='mixed')
-            logger.debug("DataFrame head after datetime conversion:\n%s", df.head())
-            timestamps = df.index.strftime('%Y-%m-%d %H:%M:%S').tolist()
+            df.index = pd.to_datetime(df.index, utc=True)
+            # now df.index is a proper DatetimeIndex in UTC
+            df.index = df.index.tz_convert("Europe/Brussels")
+            timestamps = df.index.strftime("%Y-%m-%d %H:%M:%S").tolist()
             values     = df.iloc[:, 0].tolist()
             return render_template("index.html",
                                    scripts=scripts, script=script,
