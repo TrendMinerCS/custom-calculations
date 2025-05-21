@@ -54,6 +54,39 @@ In these templates, as an example we will simply search for the day being a Mond
   * Totalize a given tag over the course of a search result. Typically, we do not want to wait until search results are completed, or add a minimal duration to the search, as that would delay the totalizer. This tag type shows the evolution of the same event summary variables that can be obtained by calculations on search results, allowing for monitoring and proactive response to deviation from expected values.
 ![img.png](images/incrementing_value_totalizer_search_results.png)
 
+
+### Coolprop examples
+
+These examples cover the use of the thermodynamics Python package [Coolprop](http://www.coolprop.org/coolprop/wrappers/Python/index.html) you can use this package to calculate new KPI's which are not directly measuerd by a sensor.
+
+**Heat Exchanger energy flow**  
+In a steam–water shell-and-tube exchanger, fouling and scale buildup gradually reduce the actual heat transferred—but raw temperature or flow tags alone won’t tell you exactly how much energy is being moved. This demo shows how to turn four live process tags into an _instantaneous_ heat-duty signal in kW, using the PyFluids/CoolProp engine under the hood.
+
+**What the Tag Does**
+1. **Reads** these dependencies at 1 min resolution:  
+   - Inlet temperature (°C)  
+   - Inlet pressure (bar)  
+   - Fluid density (kg / m³)  
+   - Volumetric flow (m³ / s)  
+
+2. **Calculates specific enthalpy**  
+   Uses the IAPWS-IF97 correlations in CoolProp to look up water enthalpy \(h\) [kJ/kg] at each timestamp.
+
+3. **Builds mass flow**  
+   $\dot{m}$ [kg/s] = density × volumetric flow.
+
+4. **Computes instantaneous heat duty $\dot{Q}$:**
+   $$
+     \dot{Q} = \dot{m} \times h
+   $$
+   where:
+   - $\dot{m}$ [kg/s] is the mass flow rate.
+   - $h$ [kJ/kg] is the specific enthalpy.
+
+5. **Result** an Analog tag (`HEX_EnergyFlow_kW`) in TrendMiner.
+![img.png](images/heat_exchanger_coolprop.png)
 ---
 
-Feel free to copy or adapt any of these scripts for your own custom calculations in TrendMiner and if you have any questions you can always reach us on the TrendMiner [community](https://community.trendminer.com)!
+Feel free to copy or adapt any of these scripts for your own custom calculations in TrendMiner and if you have any questions you can always reach us on the [TrendMiner community](https://community.trendminer.com)!
+
+---
