@@ -81,4 +81,4 @@ A confirmation request will pop up. You can apply the addition to index and work
 
 # TODOs:
 - [x] Add automatic tests which run every custom calculation
-- [ ] Split `requirements.txt` into two files: `custom_calc_requirements.txt` which exactly matches the environment within custom calculations, and `dev_requirements.txt` with utility packages for running the custom calcs locally.
+- [x] Split `requirements.txt` into two files: `dev_requirements.txt` which exactly matches the environment within custom calculations, and `dev_requirements.txt` with utility packages for running the custom calcs locally.
