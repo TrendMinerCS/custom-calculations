@@ -55,7 +55,7 @@ Run any custom calculation script and generate a time-series plot based on your 
 
 ```bash
 python testing_scripts/local_run.py \
-"custom calculations scripts/regular intervals examples/event_counter.py" \
+"custom_calculations_scripts/regular_intervals_examples/event_counter.py" \
 --mode block
 ```
 This outputs a folder `output/<script name>`, which contains a csv and png file.
@@ -73,7 +73,7 @@ Then, add a description of your new calculation to the `README.md`
 
 Finally, in order to add a new custom calculation example to the main repo, first commit and push it on the dev repo. Then you can check out the main repo and selectively check out your new script, as well as the updated `README.md`
 ```bash
-git checkout -p dev -- "custom calculations scripts/<file name>.py"
+git checkout -p dev -- "custom_calculations_scripts/<file name>.py"
 git checkout -p dev -- "README.md"
 ```
 
