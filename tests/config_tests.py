@@ -4,6 +4,7 @@ import functools
 import requests
 import keyring
 from dotenv import load_dotenv
+from pathlib import Path
 from trendminer.impl._util import DefaultUrlUtils
 
 
@@ -17,7 +18,8 @@ def env_init(start, end):
         def wrapper(*args, **kwargs):
 
             # Set authentication
-            load_dotenv(dotenv_path="../testing_scripts/.env", override=False)
+            dotenv_path = Path(__file__).resolve().parent / "../testing_scripts/.env"
+            load_dotenv(dotenv_path=dotenv_path.resolve(), override=False)
             url = os.environ["SERVER_URL"]
             client_id = os.environ["CLIENT_ID"]
 

@@ -1,4 +1,4 @@
-from config_tests import env_init
+from .config_tests import env_init
 
 
 # COOLPROP EXAMPLES
