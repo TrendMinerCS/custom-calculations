@@ -1,15 +1,24 @@
 
-# Custom calculations local devolpment
+# Custom calculations local development
 
 ### Install dependencies
-
-First install the dependencies from the `requirements.txt`
+First, you will need to create a virtual environment using python version `Python 3.9.21`, as this is the version used
+in Custom Calculations. One way to do this is to install `pyenv` and then running:
 ```bash
-pip install -r requirements.txt
+pyenv install 3.9.21
+pyenv shell 3.9.21
+python -m venv .venv
 ```
-For the custom calculations sdk you will have to download the zip file from GitHub at https://github.com/TrendMiner/tm-python-sdk-core. If you are from outside the TrendMiner organization you can contact the team for the latest version.
+Then make sure to activate your new virtual environment and set it as the default for your project.
+
+Next, in your virtual environment install the dependencies from the `requirements.txt`
 ```bash
-pip install tm_sdk.zip
+python -m pip install -r requirements.txt
+```
+
+For the custom calculations sdk you will have to download the zip file from GitHub at https://github.com/TrendMiner/tm-python-sdk-core. If you are from outside the TrendMiner organization you can contact the team for the latest version. At 
+```bash
+python -m pip install tm-python-sdk-core-main.zip
 ```
 
 ### Authentication configuration
