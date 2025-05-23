@@ -47,3 +47,8 @@ def test_search_incrementing_counter():
 @env_init("2025-01-01", "2025-02-01")
 def test_search_incrementing_totalizer():
     import custom_calculations_scripts.search_results_examples.incrementing_value_totalizer_search_results
+
+
+@env_init(start="2024-04-01", end="2025-05-01")
+def test_search_ignore_gaps():
+    import custom_calculations_scripts.search_results_examples.ignore_gaps

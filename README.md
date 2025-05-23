@@ -53,7 +53,9 @@ In these templates, as an example we will simply search for the day being a Mond
 * [**Incrementing value totalizer**](custom%20calculations%20scripts/search%20results%20examples/incrementing_value_totalizer_search_results.py)
   * Totalize a given tag over the course of a search result. Typically, we do not want to wait until search results are completed, or add a minimal duration to the search, as that would delay the totalizer. This tag type shows the evolution of the same event summary variables that can be obtained by calculations on search results, allowing for monitoring and proactive response to deviation from expected values.
 ![img.png](images/incrementing_value_totalizer_search_results.png)
-
+* [**Ignore short gaps**](custom_calculations_scripts/search_results_examples/ignore_short_gaps.py)
+  * Put a value of 1 when a value-based search is True, but ignore gaps between results which are shorter than a given threshold
+![img.png](images/ignore_short_gaps.png)
 
 ### Coolprop examples
 
