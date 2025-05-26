@@ -51,5 +51,9 @@ def test_search_incrementing_totalizer():
 
 @env_init(start="2024-04-01", end="2025-05-01")
 def test_search_ignore_gaps():
-    import custom_calculations_scripts.search_results_examples.ignore_gaps
     import custom_calculations_scripts.search_results_examples.ignore_short_gaps
+
+
+@env_init(start="2024-04-01", end="2025-05-01")
+def test_startup_downtime():
+    import custom_calculations_scripts.custom_examples.downtime_before_startup

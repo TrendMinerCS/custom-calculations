@@ -61,7 +61,7 @@ In these templates, as an example we will simply search for the day being a Mond
 
 These examples cover the use of the thermodynamics Python package [Coolprop](http://www.coolprop.org/coolprop/wrappers/Python/index.html) you can use this package to calculate new KPI's which are not directly measuerd by a sensor.
 
-**Heat Exchanger energy flow**  
+**[Heat Exchanger energy flow](custom_calculations_scripts/coolprop_examples/heat_exchanger_energy_flow.py)**  
 In a steam–water shell-and-tube exchanger, fouling and scale buildup gradually reduce the actual heat transferred—but raw temperature or flow tags alone won’t tell you exactly how much energy is being moved. This demo shows how to turn four live process tags into an _instantaneous_ heat-duty signal in kW, using the PyFluids/CoolProp engine under the hood.
 
 **What the Tag Does**
@@ -87,6 +87,16 @@ In a steam–water shell-and-tube exchanger, fouling and scale buildup gradually
 
 5. **Result** an Analog tag (`HEX_EnergyFlow_kW`) in TrendMiner.
 ![img.png](images/heat_exchanger_coolprop.png)
+
+
+### Custom Examples
+A collection of more use-case-specific examples.
+
+#### **[Downtime before startup](custom_calculations_scripts/custom_examples/downtime_before_startup.py)**
+In this example, we will put the hours of downtime before a startup as a discrete tag over the startup phase. The downtime before startup can be used to categorize the startup itself, as the amount of time the equipment was out of operation can have a significant effect on the startup process. 
+
+Startups are defined as the periods that fall between downtime and stable operation (both of which are defined as a value-based search). The downtime in hours is placed as a discrete tag over the startup which follows that downtime. During the downtime itself, our tag will have a value of 0. This way, a search on our downtime duration tag will directly yield the startup period.
+![downtime_before_startup.png](images/downtime_before_startup.png)
 ---
 
 Feel free to copy or adapt any of these scripts for your own custom calculations in TrendMiner and if you have any questions you can always reach us on the [TrendMiner community](https://community.trendminer.com)!
