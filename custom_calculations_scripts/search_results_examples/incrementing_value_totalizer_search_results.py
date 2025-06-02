@@ -84,7 +84,6 @@ for interval in intervals:
 # Concatenate the series
 ser = pd.concat(ser_list)
 ser.name = "value"
-ser.index.name = "ts"
 
 # Filter for timestamps and NaN values
 ser = (
