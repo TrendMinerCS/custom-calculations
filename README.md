@@ -36,6 +36,11 @@ Maintain a running count of events across the entire index interval and reset th
 Compute a cumulative sum of tag values over time, integrating continuously across blocks and reset the totalizer after a defined period.
 ![img.png](images/incrementing_totalizer.png)
 
+#### [Incrementing duration totalizer](custom%20calculations%20scripts/regular%20intervals%20examples/incrementing_duration_totalizer.py)
+This example creates an incrementing totalizer of search result durations (in hours). The totalizer resets at regular intervals (in  this example, every day).
+![incrementing_duration_totalizer.png](images/incrementing_duration_totalizer.png)
+
+
 ### Search Results Examples
 These examples cover the operations that happen on search results. A search is first performed, and the results of the custom calculation are then plotted at the times of the search results.
 
