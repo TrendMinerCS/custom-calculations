@@ -86,8 +86,6 @@ ser = pd.Series(
     ],
 )
 
-ser.index.name = "ts"
-
 # Filter for timestamps and NaN values
 ser = (
     ser

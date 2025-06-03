@@ -77,6 +77,5 @@ df = df.loc[
 
 ser = pd.Series(df["value"].values, index=df.index)
 ser.name = "value"
-ser.index.name = "ts"
 
 ser.to_csv(os.environ["OUTPUT_FILE"])
