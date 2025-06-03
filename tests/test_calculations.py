@@ -28,6 +28,11 @@ def test_regular_incrementing_totalizer():
     import custom_calculations_scripts.regular_intervals_examples.incrementing_totalizer
 
 
+@env_init(start="2025-04-01", end="2025-05-01")
+def test_incrementing_duration_totalizer():
+    import custom_calculations_scripts.regular_intervals_examples.incrementing_duration_totalizer
+
+
 # SEARCH RESULT EXAMPLES
 @env_init("2025-01-01", "2025-02-01")
 def test_search_block_aggregation():
@@ -54,6 +59,6 @@ def test_search_ignore_gaps():
     import custom_calculations_scripts.search_results_examples.ignore_short_gaps
 
 
-@env_init(start="2024-04-01", end="2025-05-01")
+@env_init(start="2025-04-01", end="2025-05-01")
 def test_startup_downtime():
     import custom_calculations_scripts.custom_examples.downtime_before_startup
