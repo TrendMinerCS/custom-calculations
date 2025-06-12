@@ -63,10 +63,13 @@ check_interval = client.time.interval(
     client.time.now(),
 )
 
-last_timestamp = min([
-    tag.get_plot_data(check_interval, n_intervals=1).index[-1]
-    for tag in tags
-])
+try:
+    last_timestamp = min([
+        tag.get_plot_data(check_interval, n_intervals=1).index[-1]
+        for tag in tags
+        ])
+except IndexError:
+    last_timestamp = index_interval.start
 
 # Get intervals
 intervals = client.time.interval.range(
