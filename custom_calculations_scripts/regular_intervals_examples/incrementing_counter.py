@@ -47,7 +47,7 @@ check_interval = client.time.interval(
 
 try:
     last_timestamp = min([
-        tag.get_plot_data(check_interval, n_intervals=1).index[-1]
+        tag.get_plot_data(check_interval, n_intervals=2).index[-1]
         for tag in tags
         ])
 except IndexError:
