@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Begin by exploring the [Custom Calculations Introduction notebook](custom calculations introduction.ipynb). It provides a concise overview of:
+Begin by exploring the [Custom Calculations Introduction notebook](custom_calculations_introduction.ipynb). It provides a concise overview of:
 
 * Setting up tag dependencies
 * Authenticating with the TrendMiner API
