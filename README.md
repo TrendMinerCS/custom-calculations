@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Begin by exploring the [Custom Calculations Introduction notebook](custom%20calculations%20introduction.ipynb). It provides a concise overview of:
+Begin by exploring the [Custom Calculations Introduction notebook](custom calculations introduction.ipynb). It provides a concise overview of:
 
 * Setting up tag dependencies
 * Authenticating with the TrendMiner API
@@ -14,29 +14,29 @@ This notebook is your first entry point into custom calculations.
 
 ## Example Scripts
 
-All example scripts live in the `custom calculations scripts` directory. Each script is a standalone Python file demonstrating a common pattern for writing custom calculation tags in TrendMiner.
+All example scripts live in the `custom_calculations_scripts` directory. Each script is a standalone Python file demonstrating a common pattern for writing custom calculation tags in TrendMiner.
 
 ### Regular Intervals Examples
 
 These examples cover the operations that happen on regular intervals. Daily, weekly, monthly, and yearly intervals can be generated with the `client.time.interval.range` method with `normalize=True`. Note that this approach does not work for hourly intervals, for which you need to write a custom function (returning all full hours that overlap with the index interval). Alternatively, you could opt to perform a value-based search for a built-in hour tag (e.g, TM_hour_Europe_Brussels) being constant.
 
-#### [Block aggregation](custom%20calculations%20scripts/regular%20intervals%20examples/block_aggregation.py)
+#### [Block aggregation](custom_calculations_scripts/regular_intervals_examples/block_aggregation.py)
 Apply aggregation functions (e.g., sum, average) on fixed time blocks within the index interval. This can be helpful for creating a tag for roll-up reporting or monitoring purposes.
 ![img.png](images/block_aggregation.png)
 
-#### [Event count](custom%20calculations%20scripts/regular%20intervals%20examples/event_counter.py)
+#### [Event count](custom_calculations_scripts/regular_intervals_examples/event_counter.py)
 This tag uses a value-based search to see how often the search criteria occur within a regular interval. It only counts the search results that actually start in the interval. This tag type can be used to create monitorable summary statistics on a batch, campaign, or continuous run of equipment whose condition can be defined by a search.
 ![img_1.png](images/event_count.png)
-
-#### [Incrementing counter](custom%20calculations%20scripts/regular%20intervals%20examples/incrementing_counter.py)
+  
+#### [Incrementing counter](custom_calculations_scripts/regular_intervals_examples/incrementing_counter.py)
 Maintain a running count of events across the entire index interval and reset the counter after a defined period.
 ![img.png](images/incrementing_counter.png)
 
-#### [Incrementing totalizer](custom%20calculations%20scripts/regular%20intervals%20examples/incrementing_totalizer.py)
+#### [Incrementing totalizer](custom_calculations_scripts/regular_intervals_examples/incrementing_totalizer.py)
 Compute a cumulative sum of tag values over time, integrating continuously across blocks and reset the totalizer after a defined period.
 ![img.png](images/incrementing_totalizer.png)
 
-#### [Incrementing duration totalizer](custom%20calculations%20scripts/regular%20intervals%20examples/incrementing_duration_totalizer.py)
+#### [Incrementing duration totalizer](custom_calculations_scripts/regular_intervals_examples/incrementing_duration_totalizer.py)
 This example creates an incrementing totalizer of search result durations (in hours). The totalizer resets at regular intervals (in  this example, every day).
 ![img.png](images/incrementing_duration_totalizer.png)
 
@@ -46,19 +46,19 @@ These examples cover the operations that happen on search results. A search is f
 
 In these templates, as an example we will simply search for the day being a Monday, Wednesday or Friday.
 
-#### [Block aggregations using calculations on search results](custom%20calculations%20scripts/search%20results%20examples/block_aggregations_calc_search_results.py)
+#### [Block aggregations using calculations on search results](custom_calculations_scripts/search_results_examples/block_aggregations_calc_search_results.py)
 Per search result, perform a custom calculation based on aggregations saved with the search. This allows you to delve deeper into the evolution of search aggregate calculations and well as perform custom calculations (ex. KPIs or empirical formulae) on them.
 ![img.png](images/block_aggregations_calc_search_results.png)
 
-#### [Event count on search results](custom%20calculations%20scripts/search%20results%20examples/event_counter_for_search_results.py)
+#### [Event count on search results](custom_calculations_scripts/search_results_examples/event_counter_for_search_results.py)
 Per search result, count the number of results of a second search that start within it.This algorithm can be applicable to counting events within a particular timeframe (such as tank filling periods during a campaign or equipment defouling within a particular maintenance interval) or that a particular step occurs within a batch.
 ![img.png](images/event_counter_for_search_results.png)
   
-#### [Incrementing event counter](custom%20calculations%20scripts/search%20results%20examples/incrementing_event_counter_search_results.py)
+#### [Incrementing event counter](custom_calculations_scripts/search_results_examples/incrementing_event_counter_search_results.py)
 Per main search result, have an incrementing counter for the results of a secondary search. This is similar to the last example’s application, but instead one single total count value, the counter starts at 0 and increments with 1 for every new result, resetting to 0 after the main search result concludes. This shows exactly when secondary results occured, and allows for more up to date indexing of the value rather than needing both search periods to conclude before calculating and indexing a value.
 ![img.png](images/incrementing_event_counter_search_results.png)
 
-#### [Incrementing value totalizer](custom%20calculations%20scripts/search%20results%20examples/incrementing_value_totalizer_search_results.py)
+#### [Incrementing value totalizer](custom_calculations_scripts/search_results_examples/incrementing_value_totalizer_search_results.py)
 Totalize a given tag over the course of a search result. Typically, we do not want to wait until search results are completed, or add a minimal duration to the search, as that would delay the totalizer. This tag type shows the evolution of the same event summary variables that can be obtained by calculations on search results, allowing for monitoring and proactive response to deviation from expected values.
 ![img.png](images/incrementing_value_totalizer_search_results.png)
 
