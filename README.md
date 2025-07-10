@@ -108,7 +108,6 @@ Startups are defined as the periods that fall between downtime and stable operat
 ![downtime_before_startup.png](images/downtime_before_startup.png)
 
 #### [kWh incrementing totalizer](custom_calculations_scripts/custom_examples/kwh_totalizer.py)
-
 This example demonstrates how to create an incrementing totalizer for energy consumption in kilowatt-hours (kWh) from a tag that measures power in kilowatts (kW). The script integrates the kW tag over time, converting the result to kWh, and resets the totalizer at regular intervals (e.g., daily). This is useful for monitoring and reporting energy usage over defined periods, such as daily or weekly energy consumption, and can be adapted for any tag representing power.
 ![kwh_totalizer.png](images/kwh_totalizer.png)
 ---
