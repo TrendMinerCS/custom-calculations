@@ -107,7 +107,9 @@ In this example, we will put the hours of downtime before a startup as a discret
 Startups are defined as the periods that fall between downtime and stable operation (both of which are defined as a value-based search). The downtime in hours is placed as a discrete tag over the startup which follows that downtime. During the downtime itself, our tag will have a value of 0. This way, a search on our downtime duration tag will directly yield the startup period.
 ![downtime_before_startup.png](images/downtime_before_startup.png)
 
-
+#### [kWh incrementing totalizer](custom_calculations_scripts/custom_examples/kwh_totalizer.py)
+This example demonstrates how to create an incrementing totalizer for energy consumption in kilowatt-hours (kWh) from a tag that measures power in kilowatts (kW). The script integrates the kW tag over time, converting the result to kWh, and resets the totalizer at regular intervals (e.g., daily). This is useful for monitoring and reporting energy usage over defined periods, such as daily or weekly energy consumption, and can be adapted for any tag representing power.
+![kwh_totalizer.png](images/kwh_totalizer.png)
 ---
 
 Feel free to copy or adapt any of these scripts for your own custom calculations in TrendMiner and if you have any questions you can always reach us on the [TrendMiner community](https://community.trendminer.com)!
