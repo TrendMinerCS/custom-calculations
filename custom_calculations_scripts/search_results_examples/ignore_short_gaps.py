@@ -76,8 +76,8 @@ ser = ser[~is_short_gap]
 # Filter for timestamps
 ser = (
     ser
-    .loc[lambda x: x.index > index_interval.start]
-    .loc[lambda x: x.index <= index_interval.end]
+    .loc[lambda x: x.index >= index_interval.start]
+    .loc[lambda x: x.index < index_interval.end]
 )
 
 # To file

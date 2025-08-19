@@ -98,8 +98,8 @@ ser = pd.Series(
 # Filter for timestamps and NaN values
 ser = (
     ser
-    .loc[lambda x: x.index > index_interval.start]
-    .loc[lambda x: x.index <= index_interval.end]
+    .loc[lambda x: x.index >= index_interval.start]
+    .loc[lambda x: x.index < index_interval.end]
     .dropna()
 )
 
