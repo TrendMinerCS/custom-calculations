@@ -62,3 +62,8 @@ def test_search_ignore_gaps():
 @env_init(start="2025-04-01", end="2025-05-01")
 def test_startup_downtime():
     import custom_calculations_scripts.custom_examples.downtime_before_startup
+
+
+@env_init(start="2025-04-01", end="2025-05-01")
+def test_kwh_totalizer():
+    import custom_calculations_scripts.custom_examples.kwh_totalizer
