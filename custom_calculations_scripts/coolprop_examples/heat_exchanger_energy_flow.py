@@ -71,8 +71,8 @@ df = df[["value"]]
 # 6. Final filtering and CSV output
 # ——————————————————————————————————————————
 df = df.loc[
-    (df.index > index_interval.start) &
-    (df.index <= index_interval.end)
+    (df.index >= index_interval.start) &
+    (df.index < index_interval.end)
 ]
 
 ser = pd.Series(df["value"].values, index=df.index)
