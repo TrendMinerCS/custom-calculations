@@ -81,19 +81,21 @@ for interval in intervals:
 
     ser_list.append(totals)
 
-# Concatenate the series
-ser = pd.concat(ser_list)
-ser.name = "value"
+# only proceed if the list is not empty
+if ser_list:
+    # Concatenate the series
+    ser = pd.concat(ser_list)
+    ser.name = "value"
 
-# Filter for timestamps and NaN values
-ser = (
-    ser
-    .loc[lambda x: x.index >= index_interval.start]
-    .loc[lambda x: x.index < index_interval.end]
-    .dropna()
-)
+    # Filter for timestamps and NaN values
+    ser = (
+        ser
+        .loc[lambda x: x.index >= index_interval.start]
+        .loc[lambda x: x.index < index_interval.end]
+        .dropna()
+    )
 
-# To file
-ser.to_csv(
-    os.environ["OUTPUT_FILE"]
-)
+    # To file
+    ser.to_csv(
+        os.environ["OUTPUT_FILE"]
+    )
