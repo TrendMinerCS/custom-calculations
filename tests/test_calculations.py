@@ -68,3 +68,7 @@ def test_startup_downtime():
 @env_init(start="2025-04-01", end="2025-05-01")
 def test_kwh_totalizer():
     import custom_calculations_scripts.custom_examples.kwh_totalizer
+
+@env_init(start="2025-04-01", end="2025-05-01")
+def test_power_factor_calculation():
+    import custom_calculations_scripts.custom_examples.perpetual_totalizer
