@@ -40,6 +40,9 @@ Compute a cumulative sum of tag values over time, integrating continuously acros
 This example creates an incrementing totalizer of search result durations (in hours). The totalizer resets at regular intervals (in  this example, every day).
 ![img.png](images/incrementing_duration_totalizer.png)
 
+#### [Perpetual totalizer](custom_calculations_scripts/regular_intervals_examples/perpetual_totalizer.py)
+Create a totalizer that continuously sums tag values over time from a given start time without ever resetting.
+![img.png](images/perpetual_totalizer.png)
 
 ### Search Results Examples
 These examples cover the operations that happen on search results. A search is first performed, and the results of the custom calculation are then plotted at the times of the search results.
